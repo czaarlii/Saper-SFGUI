@@ -1,10 +1,10 @@
-#include "Header.h"
+#include "aktywne_okno.h"
 
-#include <cstdlib>
-#include <ctime>
 
-Gra::Gra(const Dane & param)
-: g_parametry(param), g_zmiana_okna(false)
+Gra::Gra(const Dane & param) :
+	g_parametry(param),
+	g_zmiana_okna(false)
+
 {
 	// ustawienia graficzne gry
 	sfg::Context::Get().GetEngine().SetProperty("*#flaga", "Color", sf::Color::Red);
@@ -54,12 +54,12 @@ Gra::Gra(const Dane & param)
 	StworzPlansze();
 	UstawMiny();
 
-	auto szerokosc_planszy =g_plansza._table->GetRequisition();
+	auto szerokosc_planszy = g_plansza._table->GetRequisition();
 	auto rozmiar_menu = pasek_menu->GetRequisition();
-	rozmiar_menu.x = szerokosc_planszy.x  ;
+	rozmiar_menu.x = szerokosc_planszy.x;
 	pasek_menu->SetRequisition(rozmiar_menu);
 
-	
+
 
 	g_table = sfg::Table::Create();
 	g_table->SetRowSpacings(5.f);
@@ -73,6 +73,7 @@ Gra::Gra(const Dane & param)
 	g_window->Add(g_table);
 }
 
+
 ///******************************************Metody klasy Gra**********************************
 
 const sf::Vector2u Gra::GetWindowSize()
@@ -81,21 +82,25 @@ const sf::Vector2u Gra::GetWindowSize()
 	return static_cast<const sf::Vector2u>(r);
 }
 
+
 sfg::Window::Ptr Gra::SetWindow()
 {
 	return g_window;
 }
+
 
 bool Gra::CzyZmienicOkno()
 {
 	return g_zmiana_okna;
 }
 
+
 Dane Gra::PrzekazDane(const Dane & dane)
 {
 	g_parametry = dane;
 	return g_parametry;
 }
+
 
 char Gra::Okno()
 {
@@ -108,20 +113,23 @@ void Gra::PrzekazKursor(const sf::Vector2i & kursor)
 	g_kursor = kursor;
 }
 
+
 std::pair<int, int> Gra::OdczytajWspolrzedne()
 {
 	auto poz_mf = sf::Vector2f((float)g_kursor.x - 11.f, (float)g_kursor.y - 35.f);
 
 	float sz = poz_mf.x / 24.f, wy = poz_mf.y / 24.f;
-	int szer = (int)sz , wys = (int)wy ;
+	int szer = (int)sz, wys = (int)wy;
 	std::pair<int, int> pr(szer, wys);
 	return pr;
 }
+
 
 void Gra::OnMenuClicked()
 {
 	g_zmiana_okna = true;
 }
+
 
 void Gra::OnRestartClicked()
 {
@@ -170,7 +178,7 @@ void Gra::UstawMiny()
 	std::vector< std::pair<int, int>> pola;
 	pola.reserve(g_parametry.szerokosc*g_parametry.wysokosc);
 	std::pair<int, int> para;
-	
+
 
 	for (int w = 0; w < g_parametry.wysokosc; w++)
 	{
@@ -196,9 +204,10 @@ void Gra::UstawMiny()
 	g_pozostalo->SetText(std::to_string(g_pozostalo_min));
 }
 
+
 void Gra::ZliczMiny(int w, int k)
 {
-	if (g_plansza.at(w, k)->k_przycisk->GetState() == sfg::Widget::State::INSENSITIVE || g_plansza.at(w, k)->k_flaga==true)
+	if (g_plansza.at(w, k)->k_przycisk->GetState() == sfg::Widget::State::INSENSITIVE || g_plansza.at(w, k)->k_flaga == true)
 		return;
 
 	int ile = 0;
@@ -207,44 +216,44 @@ void Gra::ZliczMiny(int w, int k)
 	for (int i = 0; i < 8; i++)
 		jest.push_back(true);
 
-	if (k-1 < 0) { jest[0] = false; jest[3] = false; jest[5] = false; }
+	if (k - 1 < 0) { jest[0] = false; jest[3] = false; jest[5] = false; }
 	if (w - 1 < 0) { jest[0] = false; jest[1] = false; jest[2] = false; }
 	if (k + 1 >= g_parametry.szerokosc) { jest[2] = false; jest[4] = false; jest[7] = false; }
 	if (w + 1 >= g_parametry.wysokosc) { jest[5] = false; jest[6] = false; jest[7] = false; }
 
-	if (jest[0]==true)
-	if (g_plansza.at(w - 1, k - 1)->k_mina == true)
-		ile++;
+	if (jest[0] == true)
+		if (g_plansza.at(w - 1, k - 1)->k_mina == true)
+			ile++;
 
 	if (jest[1] == true)
-	if (g_plansza.at(w-1 , k)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w - 1, k)->k_mina == true)
+			ile++;
 
 	if (jest[2] == true)
-	if (g_plansza.at(w -1, k + 1)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w - 1, k + 1)->k_mina == true)
+			ile++;
 
 	if (jest[3] == true)
-	if (g_plansza.at(w, k - 1)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w, k - 1)->k_mina == true)
+			ile++;
 
 	if (jest[4] == true)
-	if (g_plansza.at(w, k + 1)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w, k + 1)->k_mina == true)
+			ile++;
 
 	if (jest[5] == true)
-	if (g_plansza.at(w + 1, k - 1)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w + 1, k - 1)->k_mina == true)
+			ile++;
 
 	if (jest[6] == true)
-	if (g_plansza.at(w + 1, k)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w + 1, k)->k_mina == true)
+			ile++;
 
 	if (jest[7] == true)
-	if (g_plansza.at(w + 1, k + 1)->k_mina == true)
-		ile++;
+		if (g_plansza.at(w + 1, k + 1)->k_mina == true)
+			ile++;
 
-	g_plansza.at(w, k)->k_przycisk->SetLabel(WypiszIle(w,k,ile));
+	g_plansza.at(w, k)->k_przycisk->SetLabel(WypiszIle(w, k, ile));
 	g_plansza.at(w, k)->k_przycisk->SetState(sfg::Widget::State::INSENSITIVE);
 	g_pozostalo_pol--;
 
@@ -256,10 +265,11 @@ void Gra::ZliczMiny(int w, int k)
 		if (jest[3] == true) ZliczMiny(w, k - 1);
 		if (jest[4] == true) ZliczMiny(w, k + 1);
 		if (jest[5] == true) ZliczMiny(w + 1, k - 1);
-		if (jest[6] == true) ZliczMiny(w + 1, k );
+		if (jest[6] == true) ZliczMiny(w + 1, k);
 		if (jest[7] == true) ZliczMiny(w + 1, k + 1);
 	}
 }
+
 
 sf::String Gra::WypiszIle(int w, int k, int ile)
 {
@@ -286,6 +296,7 @@ sf::String Gra::WypiszIle(int w, int k, int ile)
 	return sel;
 }
 
+
 void Gra::KoniecGry(bool wygrana)
 {
 	switch (wygrana)
@@ -299,21 +310,22 @@ void Gra::KoniecGry(bool wygrana)
 	}
 
 	for (int w = 0; w < g_parametry.wysokosc;w++)
-	for (int k = 0; k < g_parametry.szerokosc; k++)
-	{
-		if (wygrana == false && g_plansza.at(w, k)->k_mina == true && g_plansza.at(w, k)->k_flaga == false)
+		for (int k = 0; k < g_parametry.szerokosc; k++)
 		{
-			g_plansza.at(w, k)->k_przycisk->SetLabel(mina);
-			g_plansza.at(w, k)->k_przycisk->SetId("mina");
-		}
-		else if (g_plansza.at(w, k)->k_flaga == true && g_plansza.at(w, k)->k_mina == false)
-		{
-			g_plansza.at(w, k)->k_przycisk->SetLabel("X");
-		}
+			if (wygrana == false && g_plansza.at(w, k)->k_mina == true && g_plansza.at(w, k)->k_flaga == false)
+			{
+				g_plansza.at(w, k)->k_przycisk->SetLabel(mina);
+				g_plansza.at(w, k)->k_przycisk->SetId("mina");
+			}
+			else if (g_plansza.at(w, k)->k_flaga == true && g_plansza.at(w, k)->k_mina == false)
+			{
+				g_plansza.at(w, k)->k_przycisk->SetLabel("X");
+			}
 
-		g_plansza.at(w, k)->k_przycisk->SetState(sfg::Widget::State::INSENSITIVE);
-	}
+			g_plansza.at(w, k)->k_przycisk->SetState(sfg::Widget::State::INSENSITIVE);
+		}
 }
+
 
 void Gra::OnKomLClicked()
 {
@@ -332,15 +344,16 @@ void Gra::OnKomLClicked()
 	}
 
 
-	if (g_pozostalo_pol == 0 && g_pozostalo_min==0)
+	if (g_pozostalo_pol == 0 && g_pozostalo_min == 0)
 		KoniecGry(true);
 }
+
 
 void Gra::OnKomPClicked()
 {
 	std::pair<int, int> wspolrzedne = OdczytajWspolrzedne();
 
-	if (g_plansza.at(wspolrzedne.second, wspolrzedne.first)->k_flaga == false )
+	if (g_plansza.at(wspolrzedne.second, wspolrzedne.first)->k_flaga == false)
 	{
 		if (g_pozostalo_min == 0)
 			return;
@@ -361,40 +374,4 @@ void Gra::OnKomPClicked()
 
 	if (g_pozostalo_pol == 0 && g_pozostalo_min == 0)
 		KoniecGry(true);
-}
-
-
-
-///****************************************************Metody klasy Matrix*************************
-
-Komorka* Matrix::at(int w, int k) const
-{
-	return _plansza[w*_kolumny + k];
-}
-
-void Matrix::DodajKom(int w, int k)
-{
-	_plansza.push_back(new Komorka);
-	at(w, k)->k_przycisk->SetId("pole");
-}
-
-void Matrix::PobierzDane(int w, int k, int m)
-{
-	_wiersze = w;
-	_kolumny = k;
-	_ilosc_min = m;
-}
-
-void Matrix::UstawRozmiar(const int & w, const int & k)
-{
-	_szerokosc = 24 * k - 1;
-	_wysokosc = 24 * w - 1;
-}
-
-Matrix::~Matrix()
-{
-	for (Komorka* kom : _plansza)
-	{
-		delete kom;
-	}
 }

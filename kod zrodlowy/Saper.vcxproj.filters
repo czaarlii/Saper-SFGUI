@@ -18,18 +18,30 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source_Gra.cpp">
+    <ClCompile Include="gra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Saper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pomocnicze.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="klasy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="klasy.h">
+    <ClInclude Include="Saper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="aktywne_okno.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pomocnicze.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

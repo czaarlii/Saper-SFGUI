@@ -1,52 +1,22 @@
-#include "header.h"
+#include "aktywne_okno.h"
 
-#include <cctype>
 
-///*****************************Konstruktory**************************************
+Menu::Menu() :
+	_wysokosc(8),
+	_szerokosc(8),
+	_ilosc_min(10),
+	_niestandardowe(false),
+	_zmiana_okna(false)
 
-Saper::Saper()
 {
-	// Ustawienia graficzne aplikacji
-	std::shared_ptr<sf::Font> m_czcionka;
-	m_czcionka = std::make_shared<sf::Font>();
-	std::string s("czcionka.ttf");
-	m_czcionka->loadFromFile(s);
-
-	m_desktop.GetEngine().GetResourceManager().SetDefaultFont(m_czcionka);
-	m_desktop.SetProperty("*", "FontName", s);
-	m_desktop.SetProperty("*", "FontSize", 14.f);
-
-	m_desktop.SetProperty("Window", "TitleBackgroundColor", sf::Color(40, 33, 220));
-	m_desktop.SetProperty("Window", "BackgroundColor", sf::Color(6, 4, 50));
-	m_desktop.SetProperty("ComboBox", "BackgroundColor", sf::Color(0, 100, 240));
-	m_desktop.SetProperty("ComboBox", "HighlightedColor", sf::Color(0, 157, 182));
-	m_desktop.SetProperty("ComboBox", "ArrowColor", sf::Color(40, 33, 220));
-	m_desktop.SetProperty("Button", "BackgroundColor", sf::Color(0, 100, 240));
-
-	// Inicjalizacja g³ównego okna
-	m_render_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(0, 0), "Saper");
-	
-	m_desktop.Add(m_okno->SetWindow());
-
-	//Ustawienie rozmiaru okna
-	m_render_window->setSize(m_okno->GetWindowSize());
-
-	// Inicjalizacja biblioteki rysuj¹cej
-	m_render_window->resetGLStates();
-}
-
-
-Menu::Menu():
-_wysokosc(8), _szerokosc(8), _ilosc_min(10), _niestandardowe(false), _zmiana_okna(false)
-{
-	m_combo_box = sfg::ComboBox::Create();
-	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Menu::OnComboSelect, this));
-
 	m_blad = sfg::Label::Create();
 
 	tekst.setString("Rozpocznij gre");
 	m_start = sfg::Button::Create(tekst.getString());
 	m_start->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Menu::OnStartClicked, this));
+
+	m_combo_box = sfg::ComboBox::Create();
+	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Menu::OnComboSelect, this));
 
 	m_combo_box->AppendItem("Maly");
 	m_combo_box->AppendItem("Sredni");
@@ -78,7 +48,9 @@ _wysokosc(8), _szerokosc(8), _ilosc_min(10), _niestandardowe(false), _zmiana_okn
 	m_window->SetRequisition(rozmiar);
 }
 
-///**********************************Metody******************************************
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 sfg::Window::Ptr Menu::SetWindow()
 {
@@ -94,32 +66,6 @@ const sf::Vector2u Menu::GetWindowSize()
 char Menu::Okno()
 {
 	return M;
-}
-
-void Saper::SetRenderSize()
-{
-	m_render_window->setSize(m_okno->GetWindowSize());
-}
-
-void Saper::ZmienOkno()
-{
-	if (m_okno->Okno() == 'M')
-	{
-		Dane s_parametry = m_okno->PrzekazDane();
-		m_desktop.Remove(m_okno->SetWindow());
-		delete m_okno;
-		m_desktop.Refresh();
-		m_okno = new Gra(s_parametry);
-		m_desktop.Add(m_okno->SetWindow());
-	}
-	else if (m_okno->Okno() == 'G')
-	{
-		m_desktop.Remove(m_okno->SetWindow());
-		delete m_okno;
-		m_desktop.Refresh();
-		m_okno = new Menu;
-		m_desktop.Add(m_okno->SetWindow());
-	}
 }
 
 Dane Menu::PrzekazDane(const Dane & dane)
@@ -163,7 +109,7 @@ void Menu::OnComboSelect()
 
 	if (s == "Niestandardowy")
 	{
-		if (_niestandardowe==false)
+		if (_niestandardowe == false)
 			PokazNiestandardowe();
 		_niestandardowe = true;
 	}
@@ -180,7 +126,7 @@ void Menu::SprawdzDane()
 	{
 		std::string liczba = m_wys->GetText();
 
-		if (CzyLiczba(liczba) == false || liczba=="0" || liczba=="00")
+		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00")
 		{
 			m_blad->SetText("Nieprawidlowe dane");
 			return;
@@ -290,46 +236,10 @@ void Menu::PokazNiestandardowe()
 
 	_niestandardowe = true;
 
-	
+
 }
 
 std::string Menu::int2string(int n)
 {
 	return std::to_string(n);
-}
-
-void Saper::Run()
-{
-	sf::Event event;
-	sf::Clock clock;
-	while (m_render_window->isOpen()) {
-		// Sprawdzamy czy nast¹pi³o zdarzenie, jeœli tak, to je obs³ugujemy
-		while (m_render_window->pollEvent(event)) {
-			m_desktop.HandleEvent(event);
-
-			// Jeœli zakmniêto okno, to zakañczamy program
-			if (event.type == sf::Event::Closed) {
-				m_render_window->close();
-			}
-
-		}
-
-		if (m_okno->CzyZmienicOkno() == true)
-			ZmienOkno();
-
-		if (m_okno->Okno() == 'G')
-		{
-			m_okno->PrzekazKursor(m_mysz.getPosition(*m_render_window));
-		}
-
-		SetRenderSize();
-
-		// Funkcja odœwie¿aj¹ca widgety na pulpicie
-		m_desktop.Update(clock.restart().asSeconds());
-
-		// Komendy rysuj¹ce aplikacjê
-		m_render_window->clear();
-		m_sfgui.Display(*m_render_window);
-		m_render_window->display();
-	}
 }

@@ -1,4 +1,5 @@
-#include "klasy.h"
+#include "Saper.h"
+
 
 int main()
 {

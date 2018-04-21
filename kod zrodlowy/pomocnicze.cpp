@@ -14,9 +14,10 @@ Dane & Dane::operator= (const Dane & n)
 
 
 Komorka::Komorka() :
-	k_mina(false),
-	k_flaga(false),
-	k_przycisk(sfg::Button::Create())
+	k_mina		(false),
+	k_flaga		(false),
+	k_przycisk	(sfg::Button::Create())
+
 {
 	k_przycisk->SetRequisition(sf::Vector2f(24.f, 24.f));
 }

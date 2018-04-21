@@ -50,13 +50,12 @@ private:
 	void			SprawdzDane();
 	bool			CzyLiczba(std::string s);
 
-	int			_wysokosc;
-	int			_szerokosc;
-	int			_ilosc_min;
-	bool		_niestandardowe;
-	bool		_zmiana_okna;
-
-	const char	M = 'M';
+	int					_wysokosc;
+	int					_szerokosc;
+	int					_ilosc_min;
+	bool				_niestandardowe;
+	bool				_zmiana_okna;
+	const char			M;
 
 	sfg::Window::Ptr	m_window;
 	sfg::Label::Ptr		info;
@@ -88,28 +87,27 @@ public:
 
 private:
 
-	void				StworzPlansze();
-	void				UstawMiny();
-	std::pair<int, int>	OdczytajWspolrzedne();
-	void				ZliczMiny(int w, int k);
-	void				KoniecGry(bool wygrana);
-	sf::String			WypiszIle(int w, int k, int ile);
+	void					StworzPlansze();
+	void					UstawMiny();
+	std::pair<int, int>		OdczytajWspolrzedne();
+	void					ZliczMiny(int w, int k);
+	void					KoniecGry(bool wygrana);
+	sf::String				WypiszIle(int w, int k, int ile);
 
-	void OnKomLClicked();
-	void OnKomPClicked();
-	void OnMenuClicked();
-	void OnRestartClicked();
+	void					OnKomLClicked();
+	void					OnKomPClicked();
+	void					OnMenuClicked();
+	void					OnRestartClicked();
 
-	Dane			g_parametry;
-	int				g_pozostalo_min;
-	int				g_pozostalo_pol;
-	Matrix			g_plansza;
-	bool			g_zmiana_okna;
-	const char		G = 'G';
-	const char		mina = '$';
-	const char		flaga = '%';
-	sf::Vector2i	g_kursor;
-
+	Dane				g_parametry;
+	int					g_pozostalo_min;
+	int					g_pozostalo_pol;
+	Matrix				g_plansza;
+	bool				g_zmiana_okna;
+	const char			G;
+	const char			mina;
+	const char			flaga;
+	sf::Vector2i		g_kursor;
 
 	sfg::Window::Ptr	g_window;
 	sfg::Label::Ptr		g_pozostalo;

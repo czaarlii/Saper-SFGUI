@@ -2,20 +2,23 @@
 
 
 Menu::Menu() :
-	_wysokosc(8),
-	_szerokosc(8),
-	_ilosc_min(10),
-	_niestandardowe(false),
-	_zmiana_okna(false)
+	_wysokosc			(8),
+	_szerokosc			(8),
+	_ilosc_min			(10),
+	_niestandardowe		(false),
+	_zmiana_okna(		false),
+	M					('M'),
+	m_blad				(sfg::Label::Create()),
+	m_start				(sfg::Button::Create(tekst.getString())),
+	m_combo_box			(sfg::ComboBox::Create()),
+	m_box				(sfg::Box::Create(sfg::Box::Orientation::VERTICAL)),
+	m_window			(sfg::Window::Create())
 
 {
-	m_blad = sfg::Label::Create();
-
 	tekst.setString("Rozpocznij gre");
-	m_start = sfg::Button::Create(tekst.getString());
+	
 	m_start->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Menu::OnStartClicked, this));
 
-	m_combo_box = sfg::ComboBox::Create();
 	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Menu::OnComboSelect, this));
 
 	m_combo_box->AppendItem("Maly");
@@ -35,11 +38,9 @@ Menu::Menu() :
 	table1->Attach(m_start, sf::Rect<sf::Uint32>(0, 1, 2, 1), sfg::Table::FILL, sfg::Table::FILL);
 	table1->Attach(m_blad, sf::Rect<sf::Uint32>(2, 1, 2, 1), sfg::Table::FILL, sfg::Table::FILL);
 
-	m_box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
 	m_box->Pack(table1);
 
 	// Inicjalizujemy teraz okno aplikacji
-	m_window = sfg::Window::Create();
 	m_window->SetTitle("Menu glowne");
 	m_window->Add(m_box);
 
@@ -235,8 +236,6 @@ void Menu::PokazNiestandardowe()
 	m_window->RefreshAll();
 
 	_niestandardowe = true;
-
-
 }
 
 std::string Menu::int2string(int n)

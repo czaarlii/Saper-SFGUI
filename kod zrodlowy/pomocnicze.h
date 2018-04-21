@@ -40,16 +40,15 @@ public:
 	void		DodajKom(int w, int k);
 	void		UstawRozmiar(const int & w, const int & k);
 
-	sfg::Table::Ptr _table;
-	int				_szerokosc;
-	int				_wysokosc;
+	sfg::Table::Ptr			_table;
+	int						_szerokosc;
+	int						_wysokosc;
 
 private:
 
-	int	_wiersze;
-	int	_kolumny;
-	int	_ilosc_min;
-
-	std::vector<Komorka*> _plansza;
+	std::vector<Komorka*>	_plansza;
+	int						_wiersze;
+	int						_kolumny;
+	int						_ilosc_min;
 
 };

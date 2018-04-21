@@ -2,8 +2,16 @@
 
 
 Gra::Gra(const Dane & param) :
-	g_parametry(param),
-	g_zmiana_okna(false)
+	g_parametry			(param),
+	g_zmiana_okna		(false),
+	G					('G'),
+	mina				('$'),
+	flaga				('%'),
+	g_pozostalo			(sfg::Label::Create()),
+	g_koniec			(sfg::Button::Create("Menu")),
+	g_restart			(sfg::Button::Create("Od nowa")),
+	g_table				(sfg::Table::Create()),
+	g_window			(sfg::Window::Create())
 
 {
 	// ustawienia graficzne gry
@@ -32,12 +40,8 @@ Gra::Gra(const Dane & param) :
 	sfg::Context::Get().GetEngine().SetProperty("*#mina", "BackgroundColor", sf::Color(185, 184, 202));
 
 	//przygotowanie planszy
-	g_pozostalo = sfg::Label::Create();
-
-	g_koniec = sfg::Button::Create("Menu");
 	g_koniec->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Gra::OnMenuClicked, this));
 
-	g_restart = sfg::Button::Create("Od nowa");
 	g_restart->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Gra::OnRestartClicked, this));
 
 	auto pasek_menu = sfg::Table::Create();
@@ -60,15 +64,12 @@ Gra::Gra(const Dane & param) :
 	pasek_menu->SetRequisition(rozmiar_menu);
 
 
-
-	g_table = sfg::Table::Create();
 	g_table->SetRowSpacings(5.f);
 	g_table->Attach(g_plansza._table, sf::Rect<sf::Uint32>(0, 0, 1, 1), sfg::Table::FILL, sfg::Table::FILL);
 	g_table->Attach(pasek_menu, sf::Rect<sf::Uint32>(0, 1, 1, 1), sfg::Table::FILL, sfg::Table::FILL);
 	g_table->Attach(przyciski, sf::Rect<sf::Uint32>(0, 2, 1, 1), sfg::Table::FILL, sfg::Table::FILL);
 
 	// Inicjalizujemy teraz okno aplikacji
-	g_window = sfg::Window::Create();
 	g_window->SetTitle("Nowa gra");
 	g_window->Add(g_table);
 }

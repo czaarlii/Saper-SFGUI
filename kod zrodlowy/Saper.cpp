@@ -1,8 +1,10 @@
 #include "Saper.h"
 
 
-Saper::Saper():
-	m_okno (new Menu)
+Saper::Saper() :
+	m_okno				(new Menu),
+	m_render_window		(std::make_shared<sf::RenderWindow>(sf::VideoMode(0, 0), "Saper"))
+
 {
 	// Ustawienia graficzne aplikacji
 	std::shared_ptr<sf::Font> m_czcionka;
@@ -21,8 +23,6 @@ Saper::Saper():
 	m_desktop.SetProperty("ComboBox", "ArrowColor", sf::Color(40, 33, 220));
 	m_desktop.SetProperty("Button", "BackgroundColor", sf::Color(0, 100, 240));
 
-	// Inicjalizacja g³ównego okna
-	m_render_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(0, 0), "Saper");
 	
 	m_desktop.Add(m_okno->SetWindow());
 
@@ -74,6 +74,7 @@ void Saper::Run()
 {
 	sf::Event event;
 	sf::Clock clock;
+
 	while (m_render_window->isOpen()) 
 	{
 
@@ -85,7 +86,6 @@ void Saper::Run()
 			if (event.type == sf::Event::Closed) {
 				m_render_window->close();
 			}
-
 		}
 
 		if (m_okno->CzyZmienicOkno() == true)

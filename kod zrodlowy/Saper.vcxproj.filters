@@ -32,9 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="klasy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Saper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -44,5 +41,10 @@
     <ClInclude Include="pomocnicze.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="czcionka.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

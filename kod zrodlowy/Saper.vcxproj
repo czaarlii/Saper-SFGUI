@@ -67,8 +67,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>E:\visual\graficzna\SFML-2.3.2\include;E:\visual\graficzna\SFGUI-0.3.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\visual\graficzna\SFML-2.3.2\lib;E:\visual\graficzna\SFGUI-0.3.0\build\lib\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\git\source\SFML-2.4.2\include;E:\git\source\SFGUI\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\git\source\SFML-2.4.2\lib;E:\git\source\SFGUI\build\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>E:\visual\graficzna\SFGUI-0.3.0\include;E:\visual\graficzna\SFML-2.3.2\include;$(IncludePath)</IncludePath>
@@ -136,7 +136,9 @@
     <ClInclude Include="aktywne_okno.h" />
     <ClInclude Include="pomocnicze.h" />
     <ClInclude Include="Saper.h" />
-    <ClInclude Include="klasy.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="czcionka.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

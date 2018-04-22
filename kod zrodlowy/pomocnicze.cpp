@@ -1,9 +1,19 @@
 #include "pomocnicze.h"
 
 
+Dane::Dane()
+{}
+
+Dane::Dane(int wys, int szer, int miny) :
+	wysokosc	(wys),
+	szerokosc	(szer),
+	ilosc_min	(miny)
+{}
+
+
 Dane & Dane::operator= (const Dane & n)
 {
-	this->szerokosc = n.szerokosc;
+	this->szerokosc	= n.szerokosc;
 	this->wysokosc = n.wysokosc;
 	this->ilosc_min = n.ilosc_min;
 	return *this;
@@ -24,24 +34,15 @@ Komorka::Komorka() :
 
 
 
-Matrix::~Matrix()
+std::shared_ptr<Komorka> Matrix::at(int w, int k)
 {
-	for (Komorka* kom : _plansza)
-	{
-		delete kom;
-	}
-}
-
-
-Komorka* Matrix::at(int w, int k) const
-{
-	return _plansza[w*_kolumny + k];
+	return _plansza[w * _kolumny + k];
 }
 
 
 void Matrix::DodajKom(int w, int k)
 {
-	_plansza.push_back(new Komorka);
+	_plansza.push_back(std::make_shared<Komorka>());
 	at(w, k)->k_przycisk->SetId("pole");
 }
 

@@ -2,9 +2,9 @@
 
 
 Saper::Saper() :
-	m_okno				(new Menu),
+	m_okno				(std::make_unique<Menu>()),
 	m_render_window		(std::make_shared<sf::RenderWindow>(sf::VideoMode(0, 0), "Saper"))
-
+	
 {
 	// Ustawienia graficzne aplikacji
 	std::shared_ptr<sf::Font> m_czcionka;
@@ -36,7 +36,7 @@ Saper::Saper() :
 
 Saper::~Saper() 
 {
-	delete m_okno;
+	//delete m_okno;
 }
 
 
@@ -50,21 +50,19 @@ void Saper::SetRenderSize()
 
 void Saper::ZmienOkno()
 {
-	if (m_okno->Okno() == 'M')
-	{
+	if (m_okno->Okno() == 'M') {
 		Dane s_parametry = m_okno->PrzekazDane();
 		m_desktop.Remove(m_okno->SetWindow());
-		delete m_okno;
+		//delete m_okno;
 		m_desktop.Refresh();
-		m_okno = new Gra(s_parametry);
+		m_okno = std::make_unique<Gra>(s_parametry);
 		m_desktop.Add(m_okno->SetWindow());
-	}
-	else if (m_okno->Okno() == 'G')
-	{
+
+	} else if (m_okno->Okno() == 'G') {
 		m_desktop.Remove(m_okno->SetWindow());
-		delete m_okno;
+		//delete m_okno;
 		m_desktop.Refresh();
-		m_okno = new Menu;
+		m_okno = std::make_unique<Menu>();
 		m_desktop.Add(m_okno->SetWindow());
 	}
 }
@@ -91,8 +89,7 @@ void Saper::Run()
 		if (m_okno->CzyZmienicOkno() == true)
 			ZmienOkno();
 
-		if (m_okno->Okno() == 'G')
-		{
+		if (m_okno->Okno() == 'G') {
 			m_okno->PrzekazKursor(m_mysz.getPosition(*m_render_window));
 		}
 

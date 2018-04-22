@@ -14,6 +14,7 @@
 class Aktywne_okno
 {
 public:
+	virtual ~Aktywne_okno() {};
 
 	virtual const sf::Vector2u		GetWindowSize() = 0;
 	virtual	sfg::Window::Ptr		SetWindow() = 0;
@@ -22,16 +23,14 @@ public:
 	virtual char					Okno() = 0;
 	virtual void					PrzekazKursor(const sf::Vector2i & kursor) {}
 
-	virtual ~Aktywne_okno() {};
-
 };
 
 
 class Menu : public Aktywne_okno
 {
 public:
-
 	Menu();
+	~Menu() {}
 
 	virtual const sf::Vector2u	GetWindowSize();
 	virtual sfg::Window::Ptr	SetWindow();
@@ -39,10 +38,7 @@ public:
 	virtual Dane				PrzekazDane(const Dane & dane = { 0, 0, 0 });
 	virtual char				Okno();
 
-	~Menu() {}
-
 private:
-
 	void			OnComboSelect();
 	void			OnStartClicked();
 	std::string		int2string(int n);
@@ -50,12 +46,10 @@ private:
 	void			SprawdzDane();
 	bool			CzyLiczba(std::string s);
 
-	int					_wysokosc;
-	int					_szerokosc;
-	int					_ilosc_min;
+	const char			M;
+	Dane				_dane;
 	bool				_niestandardowe;
 	bool				_zmiana_okna;
-	const char			M;
 
 	sfg::Window::Ptr	m_window;
 	sfg::Label::Ptr		info;
@@ -74,9 +68,8 @@ private:
 class Gra : public Aktywne_okno
 {
 public:
-
 	Gra(const Dane & param);
-	//~Gra() {}
+	~Gra() {}
 
 	virtual const sf::Vector2u		GetWindowSize();
 	virtual sfg::Window::Ptr		SetWindow();
@@ -86,7 +79,6 @@ public:
 	virtual void					PrzekazKursor(const sf::Vector2i & kursor);
 
 private:
-
 	void					StworzPlansze();
 	void					UstawMiny();
 	std::pair<int, int>		OdczytajWspolrzedne();
@@ -99,14 +91,16 @@ private:
 	void					OnMenuClicked();
 	void					OnRestartClicked();
 
+
+	const char			G;
+	const char			mina;
+	const char			flaga;
+
 	Dane				g_parametry;
 	int					g_pozostalo_min;
 	int					g_pozostalo_pol;
 	Matrix				g_plansza;
 	bool				g_zmiana_okna;
-	const char			G;
-	const char			mina;
-	const char			flaga;
 	sf::Vector2i		g_kursor;
 
 	sfg::Window::Ptr	g_window;

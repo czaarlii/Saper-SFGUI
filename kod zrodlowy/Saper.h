@@ -18,19 +18,17 @@
 class Saper
 {
 public:
-
 	Saper();
 	~Saper();
 
 	void Run();
 
 private:
-
 	void SetRenderSize();
 	void ZmienOkno();
 
-	Aktywne_okno*	m_okno;
-	sfg::SFGUI		m_sfgui;	/// Obiekt SFGUI, potrzebny do inicjalizacji biblioteki
+	std::unique_ptr<Aktywne_okno>		m_okno;
+	sfg::SFGUI							m_sfgui;	/// Obiekt SFGUI, potrzebny do inicjalizacji biblioteki
 
 	sf::Mouse							m_mysz;
 	sfg::Desktop						m_desktop;

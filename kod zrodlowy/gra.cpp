@@ -2,16 +2,16 @@
 
 
 Gra::Gra(const Dane & param) :
-	g_parametry			(param),
-	g_zmiana_okna		(false),
-	G					('G'),
-	mina				('$'),
-	flaga				('%'),
-	g_pozostalo			(sfg::Label::Create()),
-	g_koniec			(sfg::Button::Create("Menu")),
-	g_restart			(sfg::Button::Create("Od nowa")),
-	g_table				(sfg::Table::Create()),
-	g_window			(sfg::Window::Create())
+	G				('G'),
+	mina			('$'),
+	flaga			('%'),
+	g_parametry		(param),
+	g_zmiana_okna	(false),
+	g_pozostalo		(sfg::Label::Create()),
+	g_koniec		(sfg::Button::Create("Menu")),
+	g_restart		(sfg::Button::Create("Od nowa")),
+	g_table			(sfg::Table::Create()),
+	g_window		(sfg::Window::Create())
 
 {
 	// ustawienia graficzne gry

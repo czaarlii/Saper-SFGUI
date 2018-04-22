@@ -2,20 +2,18 @@
 
 
 Menu::Menu() :
-	_wysokosc			(8),
-	_szerokosc			(8),
-	_ilosc_min			(10),
+	_dane				(8, 8, 10),
 	_niestandardowe		(false),
-	_zmiana_okna(		false),
+	_zmiana_okna		(false),
 	M					('M'),
 	m_blad				(sfg::Label::Create()),
-	m_start				(sfg::Button::Create(tekst.getString())),
 	m_combo_box			(sfg::ComboBox::Create()),
 	m_box				(sfg::Box::Create(sfg::Box::Orientation::VERTICAL)),
 	m_window			(sfg::Window::Create())
 
 {
 	tekst.setString("Rozpocznij gre");
+	m_start = sfg::Button::Create(tekst.getString());
 	
 	m_start->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Menu::OnStartClicked, this));
 
@@ -71,10 +69,10 @@ char Menu::Okno()
 
 Dane Menu::PrzekazDane(const Dane & dane)
 {
-	Dane parametry;
-	parametry.wysokosc = _wysokosc;
+	Dane parametry(_dane);
+	/*parametry.wysokosc = _wysokosc;
 	parametry.szerokosc = _szerokosc;
-	parametry.ilosc_min = _ilosc_min;
+	parametry.ilosc_min = _ilosc_min;*/
 	return parametry;
 }
 
@@ -84,28 +82,28 @@ void Menu::OnComboSelect()
 
 	if (s == "Maly")
 	{
-		_wysokosc = 8;
-		_szerokosc = 8;
-		_ilosc_min = 10;
+		_dane.wysokosc = 8;
+		_dane.szerokosc = 8;
+		_dane.ilosc_min = 10;
 	}
 	if (s == "Sredni")
 	{
-		_wysokosc = 16;
-		_szerokosc = 16;
-		_ilosc_min = 40;
+		_dane.wysokosc = 16;
+		_dane.szerokosc = 16;
+		_dane.ilosc_min = 40;
 	}
 	if (s == "Duzy")
 	{
-		_wysokosc = 16;
-		_szerokosc = 30;
-		_ilosc_min = 100;
+		_dane.wysokosc = 16;
+		_dane.szerokosc = 30;
+		_dane.ilosc_min = 100;
 	}
 
 	if (_niestandardowe == true)
 	{
-		m_wys->SetText(int2string(_wysokosc));
-		m_szer->SetText(int2string(_szerokosc));
-		m_miny->SetText(int2string(_ilosc_min));
+		m_wys->SetText(int2string(_dane.wysokosc));
+		m_szer->SetText(int2string(_dane.szerokosc));
+		m_miny->SetText(int2string(_dane.ilosc_min));
 	}
 
 	if (s == "Niestandardowy")
@@ -127,61 +125,58 @@ void Menu::SprawdzDane()
 	{
 		std::string liczba = m_wys->GetText();
 
-		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00")
-		{
+		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00") {
 			m_blad->SetText("Nieprawidlowe dane");
 			return;
 		}
-		if (liczba.size() == 0)
-		{
+
+		if (liczba.size() == 0) {
 			m_blad->SetText("Za malo danych.");
 			return;
 		}
-		if (std::stoi(liczba) > 25)
-		{
+
+		if (std::stoi(liczba) > 25) {
 			m_blad->SetText("Za wysoka plansza.");
 			return;
 		}
-		_wysokosc = std::stoi(liczba);
+		_dane.wysokosc = std::stoi(liczba);
 
 		liczba = m_szer->GetText();
-		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00")
-		{
+
+		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00") {
 			m_blad->SetText("Nieprawidlowe dane");
 			return;
 		}
-		if (liczba.size() == 0)
-		{
+
+		if (liczba.size() == 0) {
 			m_blad->SetText("Za malo danych.");
 			return;
 		}
-		if (std::stoi(liczba) <= 4)
-		{
+
+		if (std::stoi(liczba) <= 4) {
 			m_blad->SetText("Za waska plansza.");
 			return;
 		}
-		if (std::stoi(liczba) > 55)
-		{
+
+		if (std::stoi(liczba) > 55) {
 			m_blad->SetText("Za szeroka plansza.");
 			return;
 		}
-		_szerokosc = std::stoi(liczba);
+		_dane.szerokosc = std::stoi(liczba);
 
 		liczba = m_miny->GetText();
-		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00" || liczba == "000")
-		{
+
+		if (CzyLiczba(liczba) == false || liczba == "0" || liczba == "00" || liczba == "000") {
 			m_blad->SetText("Nieprawidlowe dane");
 			return;
 		}
-		if (liczba.size() == 0)
-		{
+		if (liczba.size() == 0) {
 			m_blad->SetText("Za malo danych.");
 			return;
 		}
-		_ilosc_min = std::stoi(liczba);
+		_dane.ilosc_min = std::stoi(liczba);
 
-		if (_ilosc_min >= _wysokosc * _szerokosc)
-		{
+		if (_dane.ilosc_min >= _dane.wysokosc * _dane.szerokosc) {
 			m_blad->SetText("Za duzo min.");
 			return;
 		}
@@ -192,8 +187,7 @@ void Menu::SprawdzDane()
 
 bool Menu::CzyLiczba(std::string s)
 {
-	for (char i : s)
-	{
+	for (char i : s) {
 		if (!isdigit(i))
 			return false;
 	}
@@ -209,13 +203,13 @@ void Menu::PokazNiestandardowe()
 {
 	m_wys = sfg::Entry::Create();
 	m_wys->SetMaximumLength(2);
-	m_wys->SetText(int2string(_wysokosc));
+	m_wys->SetText(int2string(_dane.wysokosc));
 	m_szer = sfg::Entry::Create();
 	m_szer->SetMaximumLength(2);
-	m_szer->SetText(int2string(_szerokosc));
+	m_szer->SetText(int2string(_dane.szerokosc));
 	m_miny = sfg::Entry::Create();
 	m_miny->SetMaximumLength(3);
-	m_miny->SetText(int2string(_ilosc_min));
+	m_miny->SetText(int2string(_dane.ilosc_min));
 
 	auto table2 = sfg::Table::Create();
 	table2->SetRowSpacings(6.f);

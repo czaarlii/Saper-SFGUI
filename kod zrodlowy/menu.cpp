@@ -1,16 +1,15 @@
 #include "aktywne_okno.h"
 
 
-Menu::Menu() :
-	_dane				(8, 8, 10),
-	_niestandardowe		(false),
-	_zmiana_okna		(false),
-	M					('M'),
-	m_blad				(sfg::Label::Create()),
-	m_combo_box			(sfg::ComboBox::Create()),
-	m_box				(sfg::Box::Create(sfg::Box::Orientation::VERTICAL)),
-	m_window			(sfg::Window::Create())
-
+Menu::Menu() 
+	: _dane				(8, 8, 10)
+	, _niestandardowe	(false)
+	, _zmiana_okna		(false)
+	, M					('M')
+	, m_blad			(sfg::Label::Create())
+	, m_combo_box		(sfg::ComboBox::Create())
+	, m_box				(sfg::Box::Create(sfg::Box::Orientation::VERTICAL))
+	, m_window			(sfg::Window::Create())
 {
 	tekst.setString("Rozpocznij gre");
 	m_start = sfg::Button::Create(tekst.getString());

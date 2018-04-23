@@ -1,10 +1,9 @@
 #include "Saper.h"
 
 
-Saper::Saper() :
-	m_okno				(std::make_unique<Menu>()),
-	m_render_window		(std::make_shared<sf::RenderWindow>(sf::VideoMode(0, 0), "Saper"))
-	
+Saper::Saper() 
+	: m_okno			(std::make_unique<Menu>())
+	, m_render_window	(std::make_shared<sf::RenderWindow>(sf::VideoMode(0, 0), "Saper"))
 {
 	// Ustawienia graficzne aplikacji
 	std::shared_ptr<sf::Font> m_czcionka;

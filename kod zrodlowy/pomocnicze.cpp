@@ -4,10 +4,12 @@
 Dane::Dane()
 {}
 
-Dane::Dane(int wys, int szer, int miny) :
-	wysokosc	(wys),
-	szerokosc	(szer),
-	ilosc_min	(miny)
+Dane::Dane(	int wys, 
+			int szer, 
+			int miny) 
+	: wysokosc	(wys)
+	, szerokosc	(szer)
+	, ilosc_min	(miny)
 {}
 
 
@@ -23,15 +25,13 @@ Dane & Dane::operator= (const Dane & n)
 ///****************************************************Metody klasy Komorka i Matrix*************************
 
 
-Komorka::Komorka() :
-	k_mina		(false),
-	k_flaga		(false),
-	k_przycisk	(sfg::Button::Create())
-
+Komorka::Komorka() 
+	: k_mina		(false)
+	, k_flaga		(false)
+	, k_przycisk	(sfg::Button::Create())
 {
 	k_przycisk->SetRequisition(sf::Vector2f(24.f, 24.f));
 }
-
 
 
 std::shared_ptr<Komorka> Matrix::at(int w, int k)

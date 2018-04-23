@@ -1,21 +1,21 @@
 #include "aktywne_okno.h"
 
 
-Gra::Gra(const Dane & param) :
-	G				('G'),
-	mina			('$'),
-	flaga			('%'),
-	g_parametry		(param),
-	g_zmiana_okna	(false),
-	g_pozostalo		(sfg::Label::Create()),
-	g_koniec		(sfg::Button::Create("Menu")),
-	g_restart		(sfg::Button::Create("Od nowa")),
-	g_table			(sfg::Table::Create()),
-	g_window		(sfg::Window::Create())
-
+Gra::Gra(const Dane & param) 
+	: G				('G')
+	, mina			('$')
+	, flaga			('%')
+	, g_parametry	(param)
+	, g_zmiana_okna	(false)
+	, g_pozostalo	(sfg::Label::Create())
+	, g_koniec		(sfg::Button::Create("Menu"))
+	, g_restart		(sfg::Button::Create("Od nowa"))
+	, g_table		(sfg::Table::Create())
+	, g_window		(sfg::Window::Create())
 {
 	// ustawienia graficzne gry
 	sfg::Context::Get().GetEngine().SetProperty("*#flaga", "Color", sf::Color::Red);
+
 	sfg::Context::Get().GetEngine().SetProperty("*#pole", "Color", sf::Color(160, 160, 160));
 	sfg::Context::Get().GetEngine().SetProperty("*#pole1", "Color", sf::Color::Blue);
 	sfg::Context::Get().GetEngine().SetProperty("*#pole2", "Color", sf::Color::Green);
@@ -25,7 +25,9 @@ Gra::Gra(const Dane & param) :
 	sfg::Context::Get().GetEngine().SetProperty("*#pole6", "Color", sf::Color::Cyan);
 	sfg::Context::Get().GetEngine().SetProperty("*#pole7", "Color", sf::Color::Black);
 	sfg::Context::Get().GetEngine().SetProperty("*#pole8", "Color", sf::Color(222, 242, 2));
+
 	sfg::Context::Get().GetEngine().SetProperty("*#mina", "Color", sf::Color::Black);
+
 	sfg::Context::Get().GetEngine().SetProperty("*#pole0", "BackgroundColor", sf::Color(142, 142, 142));
 	sfg::Context::Get().GetEngine().SetProperty("*#pole1", "BackgroundColor", sf::Color(142, 142, 142));
 	sfg::Context::Get().GetEngine().SetProperty("*#pole2", "BackgroundColor", sf::Color(142, 142, 142));
@@ -35,6 +37,7 @@ Gra::Gra(const Dane & param) :
 	sfg::Context::Get().GetEngine().SetProperty("*#pole6", "BackgroundColor", sf::Color(142, 142, 142));
 	sfg::Context::Get().GetEngine().SetProperty("*#pole7", "BackgroundColor", sf::Color(142, 142, 142));
 	sfg::Context::Get().GetEngine().SetProperty("*#pole8", "BackgroundColor", sf::Color(142, 142, 142));
+
 	sfg::Context::Get().GetEngine().SetProperty("*#pole", "BackgroundColor", sf::Color(185, 184, 202));
 	sfg::Context::Get().GetEngine().SetProperty("*#flaga", "BackgroundColor", sf::Color(185, 184, 202));
 	sfg::Context::Get().GetEngine().SetProperty("*#mina", "BackgroundColor", sf::Color(185, 184, 202));
